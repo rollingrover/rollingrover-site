@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+body {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-orbitron), sans-serif;
+}
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.animate-gradient-x {
+  background-size: 200% 200%;
+  animation: gradient-x 6s ease infinite;
+}
