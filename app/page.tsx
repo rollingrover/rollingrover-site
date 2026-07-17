@@ -1,25 +1,25 @@
 'use client';
 
 import { useState } from 'react';
-import { Send, MapPin, Clock, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Send, MapPin, Clock, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 
 export default function RollingRover() {
   const [formData, setFormData] = useState({ name: '', email: '', projectType: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Gallery state
   const clientSites = [
     { name: 'Diza Travels', url: 'https://www.dizatravels.co.za' },
-//    { name: 'ZAtours', url: 'https://www.zatours.co.za' },
     { name: 'eThlathini Rest Camp', url: 'https://www.ethlathini.co.za' },
-    { name: 'Mzamos Cultural Village and Homestead', url: 'https://www.mzamovillagehomestead.co.za' },
-    { name: 'Diza Kwa-Smolo Community Upliftign Initiative', url: 'https://www.dizakwasmolo.co.za' },
-    { name: 'OpDesk - Tourism Operators Desk', url: 'https://www.opdesk.app' },
+    { name: 'Mzamo Village Homestead', url: 'https://www.mzamovillagehomestead.co.za' },
+    { name: 'Diza Kwa-Smolo', url: 'https://www.dizakwasmolo.co.za' },
+    { name: 'OpDesk', url: 'https://www.opdesk.app' },
   ];
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   const handlePrev = () => setCurrentIndex((prev) => (prev === 0 ? clientSites.length - 1 : prev - 1));
   const handleNext = () => setCurrentIndex((prev) => (prev === clientSites.length - 1 ? 0 : prev + 1));
+
+  const currentSite = clientSites[currentIndex];
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,24 +62,40 @@ export default function RollingRover() {
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 text-amber-400 animate-bounce text-4xl">↓</div>
       </div>
 
-      {/* Gallery Section */}
+      {/* Client Showcase */}
       <div className="max-w-5xl mx-auto px-6 py-16">
         <h2 className="font-orbitron text-3xl font-bold mb-8 text-center">Client Showcase</h2>
-        <div className="relative bg-zinc-900 rounded-2xl overflow-hidden shadow-xl">
-          <iframe
-            src={clientSites[currentIndex].url}
-            title={clientSites[currentIndex].name}
-            className="w-full h-[600px] border-0"
-          />
+        
+        <div className="relative bg-zinc-900 rounded-2xl overflow-hidden shadow-xl border border-amber-900/30">
+          <div className="relative h-[620px] bg-black">
+            <iframe
+              key={currentIndex}
+              src={currentSite.url}
+              title={currentSite.name}
+              className="w-full h-full border-0"
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals"
+            />
+          </div>
+
           {/* Controls */}
-          <button onClick={handlePrev} className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 p-3 rounded-full hover:bg-black/70">
+          <button onClick={handlePrev} className="absolute top-1/2 left-6 -translate-y-1/2 bg-black/70 hover:bg-amber-600 p-4 rounded-full transition-all z-20">
             <ChevronLeft className="w-6 h-6 text-amber-400" />
           </button>
-          <button onClick={handleNext} className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/50 p-3 rounded-full hover:bg-black/70">
+          <button onClick={handleNext} className="absolute top-1/2 right-6 -translate-y-1/2 bg-black/70 hover:bg-amber-600 p-4 rounded-full transition-all z-20">
             <ChevronRight className="w-6 h-6 text-amber-400" />
           </button>
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-sm text-zinc-400 font-inter">
-            {clientSites[currentIndex].name}
+
+          {/* Name + Link Below */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/80 px-8 py-3 rounded-full text-sm flex items-center gap-4 z-20">
+            <span className="text-amber-300">{currentSite.name}</span>
+            <a 
+              href={currentSite.url} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 text-amber-400 hover:text-white text-xs transition-colors"
+            >
+              Open in new tab <ExternalLink className="w-3.5 h-3.5" />
+            </a>
           </div>
         </div>
       </div>
@@ -95,20 +111,17 @@ export default function RollingRover() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className="block text-sm font-medium text-amber-200 mb-2 font-inter">Your Name</label>
-              <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full bg-zinc-950 border border-amber-700 rounded-xl px-4 py-3 focus:border-amber-400 font-inter" required />
+              <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full bg-zinc-950 border border-amber-700 rounded-xl px-4 py-3 focus:border-amber-400 font-inter" required />
             </div>
             <div>
               <label className="block text-sm font-medium text-amber-200 mb-2 font-inter">Email Address</label>
-              <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full bg-zinc-950 border border-amber-700 rounded-xl px-4 py-3 focus:border-amber-400 font-inter" required />
+              <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full bg-zinc-950 border border-amber-700 rounded-xl px-4 py-3 focus:border-amber-400 font-inter" required />
             </div>
           </div>
 
           <div>
             <label className="block text-sm font-medium text-amber-200 mb-2 font-inter">Project Type</label>
-            <select value={formData.projectType} onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-              className="w-full bg-zinc-950 border border-amber-700 rounded-xl px-4 py-3 focus:border-amber-400 font-inter" required>
+            <select value={formData.projectType} onChange={(e) => setFormData({ ...formData, projectType: e.target.value })} className="w-full bg-zinc-950 border border-amber-700 rounded-xl px-4 py-3 focus:border-amber-400 font-inter" required>
               <option value="">Select...</option>
               <option value="website">New Website</option>
               <option value="redesign">Website Redesign</option>
@@ -119,15 +132,11 @@ export default function RollingRover() {
 
           <div>
             <label className="block text-sm font-medium text-amber-200 mb-2 font-inter">Message</label>
-            <textarea rows={6} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              className="w-full bg-zinc-950 border border-amber-700 rounded-xl px-4 py-3 focus:border-amber-400 font-inter resize-y"
-              placeholder="Describe your vision, goals, and timeline..." required />
+            <textarea rows={6} value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} className="w-full bg-zinc-950 border border-amber-700 rounded-xl px-4 py-3 focus:border-amber-400 font-inter resize-y" placeholder="Describe your vision..." required />
           </div>
 
-          <button type="submit" disabled={status === 'loading'}
-            className="w-full py-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 disabled:opacity-70 font-bold uppercase rounded-xl text-lg flex items-center justify-center gap-2 shadow-lg transition-all font-inter">
-            {status === 'loading' ? 'Sending...' : 'Send Design Brief'}
-            <Send className="w-5 h-5" />
+          <button type="submit" disabled={status === 'loading'} className="w-full py-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-500 hover:to-orange-500 disabled:opacity-70 font-bold uppercase rounded-xl text-lg flex items-center justify-center gap-2 shadow-lg transition-all font-inter">
+            {status === 'loading' ? 'Sending...' : 'Send Design Brief'} <Send className="w-5 h-5" />
           </button>
 
           {status === 'success' && <p className="text-green-400 text-center font-inter">Thanks! I’ll get back to you within 48 hours.</p>}
