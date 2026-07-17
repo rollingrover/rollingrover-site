@@ -11,10 +11,10 @@ export default function RollingRover() {
   const clientSites = [
     { name: 'Diza Travels', url: 'https://www.dizatravels.co.za' },
 //    { name: 'ZAtours', url: 'https://www.zatours.co.za' },
-//    { name: 'eThlathini Rest Camp', url: 'https://www.ethlathini.co.za' },
+    { name: 'eThlathini Rest Camp', url: 'https://www.ethlathini.co.za' },
     { name: 'Mzamos Cultural Village and Homestead', url: 'https://www.mzamovillagehomestead.co.za' },
     { name: 'Diza Kwa-Smolo Community Upliftign Initiative', url: 'https://www.dizakwasmolo.co.za' },
-//    { name: 'OpDesk - Tourism Operators Desk', url: 'https://www.opdesk.app' },
+    { name: 'OpDesk - Tourism Operators Desk', url: 'https://www.opdesk.app' },
   ];
   const [currentIndex, setCurrentIndex] = useState(0);
 
