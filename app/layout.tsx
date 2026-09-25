@@ -24,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={`${inter.variable} ${orbitron.variable} bg-black text-white antialiased`}>
         {children}
+        <Analytics />
       </body>
     </html>
   );
