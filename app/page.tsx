@@ -12,7 +12,8 @@ export default function RollingRover() {
     { name: 'Diza Travels', url: 'https://www.dizatravels.co.za' },
     { name: 'eThlathini Rest Camp', url: 'https://www.ethlathini.co.za' },
     { name: 'Mzamo Village Homestead', url: 'https://www.mzamovillagehomestead.co.za' },
-    { name: 'Diza Kwa-Smolo', url: 'https://www.dizakwasmolo.co.za' },    
+    { name: 'Diza Kwa-Smolo', url: 'https://www.dizakwasmolo.co.za' },
+    { name: 'OpDesk', url: 'https://www.opdesk.app' },
   ];
 
   const handlePrev = () => setCurrentIndex((prev) => (prev === 0 ? clientSites.length - 1 : prev - 1));
